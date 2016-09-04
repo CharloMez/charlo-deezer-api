@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <route>
+        <scheme>/users/{userId}</scheme>
+        <controller>UserController</controller>
+        <action>getUserAction</action>
+        <method>GET</method>
+    </route>
+    <route>
+        <scheme>/songs/{songsId}</scheme>
+        <controller>SongController</controller>
+        <action>getSongAction</action>
+        <method>GET</method>
+    </route>
+    <route>
+        <scheme>/users/{userId}/songs</scheme>
+        <controller>UserController</controller>
+        <action>getUserSongsAction</action>
+        <method>GET</method>
+    </route>
+    <route>
+        <scheme>/users/{userId}/songs/{songId}</scheme>
+        <controller>UserController</controller>
+        <action>addUserSongAction</action>
+        <method>POST</method>
+    </route>
+    <route>
+        <scheme>/users/{userId}/songs/{songId}</scheme>
+        <controller>UserController</controller>
+        <action>delUserSongAction</action>
+        <method>DELETE</method>
+    </route>
+</config>
