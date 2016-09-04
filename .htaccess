@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule (.*) Web/index.php
+RewriteRule ^http://$1/(.*) http://$1/Web/index.php [R,L]
