@@ -18,7 +18,7 @@ class ResponseXml implements ResponseInterface
 
         $xml = $this->arrayToXml($data, $xml);
 
-        print $xml->asXML();
+        return $xml->asXML();
     }
 
     /**

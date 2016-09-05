@@ -42,7 +42,7 @@ class Router
         $routeContent = file_get_contents(dirname(__FILE__) . '/../' . self::CONFIG_ROUTE_PATH);
 
         if ($routeContent === false) {
-            throw new RouteNotFoundException('Route config file not found', 404);
+            throw new RouteNotFoundException('Route config file not found');
         }
 
         $this->allRoutes = new \SimpleXMLElement($routeContent);
@@ -70,7 +70,7 @@ class Router
         try {
             $controller = new $controllerPath();
         } catch (\Exception $e) {
-            throw new \Exception('No controller found', 500);
+            throw new \Exception('No controller found');
         }
 
         return $controller;
@@ -137,6 +137,6 @@ class Router
     {
         $this->controllerName = (string) $route->controller;
         $this->controllerAction = (string) $route->action;
-        $request->setData($this->routeArgs);
+        $request->addData($this->routeArgs);
     }
 }

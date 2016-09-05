@@ -14,7 +14,7 @@ class ResponseJson implements ResponseInterface
      */
     public function send(array $data = array())
     {
-        echo json_encode($data);
+        return json_encode($data);
     }
 
     /**

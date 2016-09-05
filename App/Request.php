@@ -1,6 +1,9 @@
 <?php
 
 namespace App;
+use App\Response\ResponseInterface;
+use App\Response\ResponseJson;
+use App\Response\ResponseXml;
 
 /**
  * Class Request
@@ -61,6 +64,14 @@ class Request
     }
 
     /**
+     * @param array $data
+     */
+    public function addData(array $data = array())
+    {
+        $this->data = array_merge($this->data, $data);
+    }
+
+    /**
      * @param string $name
      *
      * @return null|string
@@ -102,5 +113,30 @@ class Request
     public function getAcceptHeader()
     {
         return $this->accept;
+    }
+
+    /**
+     * Evaluate the requested response
+     * instantiate the appropriate response object
+     *
+     * @return ResponseInterface
+     */
+    public function getResponse()
+    {
+        $response = null;
+
+        switch ($this->getAcceptHeader()) {
+            case 'application/json':
+                $response = new ResponseJson();
+                break;
+            case 'application/xml':
+                $response = new ResponseXml();
+                break;
+            default:
+                $response = new ResponseJson();
+                break;
+        }
+
+        return $response;
     }
 }

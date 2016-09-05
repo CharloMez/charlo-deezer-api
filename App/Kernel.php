@@ -5,8 +5,6 @@ namespace App;
 use App\Exception\BadRequestException;
 use App\Exception\RouteNotFoundException;
 use App\Response\ResponseInterface;
-use App\Response\ResponseJson;
-use App\Response\ResponseXml;
 
 /**
  * Class Kernel
@@ -32,11 +30,15 @@ class Kernel
 
     /**
      * Kernel constructor.
+     *
+     * @param Request $request
+     * @param Router $router
      */
-    public function __construct()
+    public function __construct(Request $request, ResponseInterface $response, Router $router)
     {
-        $this->request = new Request();
-        $this->router = new Router();
+        $this->request = $request;
+        $this->router = $router;
+        $this->response = $response;
     }
 
     public function launch()
@@ -44,8 +46,6 @@ class Kernel
         $code = 200;
 
         try {
-            $this->request->evalRequest();
-
             $this->router->evalControllerAction($this->request);
             $controller = $this->router->getController();
             $action = $this->router->getAction();
@@ -62,13 +62,14 @@ class Kernel
             $data = $this->setErrorData($e->getMessage(), 500);
         }
 
-        $this->instantiateResponse();
         $this->response->fillResponseHeaders($code);
-        $this->response->send(empty($data) ? array() : $data);
+
+        return $this->response->send(empty($data) ? array() : $data);
     }
 
     /**
-     * @param $e
+     * @param string $msg
+     * @param int $code
      *
      * @return array
      */
@@ -78,24 +79,5 @@ class Kernel
             'code' => $code,
             'message' => $msg
         );
-    }
-
-    /**
-     * Evaluate the requested response
-     * instantiate the appropriate response object
-     */
-    private function instantiateResponse()
-    {
-        switch ($this->request->getAcceptHeader()) {
-            case 'application/json':
-                $this->response = new ResponseJson();
-                break;
-            case 'application/xml':
-                $this->response = new ResponseXml();
-                break;
-            default:
-                $this->response = new ResponseJson();
-                break;
-        }
     }
 }

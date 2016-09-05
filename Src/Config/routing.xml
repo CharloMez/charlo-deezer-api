@@ -7,10 +7,22 @@
         <method>GET</method>
     </route>
     <route>
-        <scheme>/songs/{songsId}</scheme>
-        <controller>SongController</controller>
-        <action>getSongAction</action>
+        <scheme>/users</scheme>
+        <controller>UserController</controller>
+        <action>getUsersAction</action>
         <method>GET</method>
+    </route>
+    <route>
+        <scheme>/users</scheme>
+        <controller>UserController</controller>
+        <action>addUserAction</action>
+        <method>POST</method>
+    </route>
+    <route>
+        <scheme>/users/{userId}</scheme>
+        <controller>UserController</controller>
+        <action>deleteUserAction</action>
+        <method>DELETE</method>
     </route>
     <route>
         <scheme>/users/{userId}/songs</scheme>
@@ -27,7 +39,31 @@
     <route>
         <scheme>/users/{userId}/songs/{songId}</scheme>
         <controller>UserController</controller>
-        <action>delUserSongAction</action>
+        <action>deleteUserSongAction</action>
+        <method>DELETE</method>
+    </route>
+    <route>
+        <scheme>/songs/{songId}</scheme>
+        <controller>SongController</controller>
+        <action>getSongAction</action>
+        <method>GET</method>
+    </route>
+    <route>
+        <scheme>/songs</scheme>
+        <controller>SongController</controller>
+        <action>getSongsAction</action>
+        <method>GET</method>
+    </route>
+    <route>
+        <scheme>/songs</scheme>
+        <controller>SongController</controller>
+        <action>addSongAction</action>
+        <method>POST</method>
+    </route>
+    <route>
+        <scheme>/songs/{songId}</scheme>
+        <controller>SongController</controller>
+        <action>deleteSongAction</action>
         <method>DELETE</method>
     </route>
 </config>
